@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1679420425852,
+  "timestamp": 1679594194264,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -31,6 +31,20 @@
         "ignoreVary": true
       },
       "urls": [
+        "/SourceSansPro-Regular.ttf",
+        "/assets/fonts/source-sans-pro/OFL.txt",
+        "/assets/fonts/source-sans-pro/SourceSansPro-Black.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-BlackItalic.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-Bold.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-BoldItalic.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-ExtraLight.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-ExtraLightItalic.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-Italic.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-Light.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-LightItalic.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-Regular.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-SemiBold.ttf",
+        "/assets/fonts/source-sans-pro/SourceSansPro-SemiBoldItalic.ttf",
         "/assets/icons/icon-128x128.png",
         "/assets/icons/icon-144x144.png",
         "/assets/icons/icon-152x152.png",
@@ -38,13 +52,28 @@
         "/assets/icons/icon-384x384.png",
         "/assets/icons/icon-512x512.png",
         "/assets/icons/icon-72x72.png",
-        "/assets/icons/icon-96x96.png"
+        "/assets/icons/icon-96x96.png",
+        "/assets/images/archipelago-blue-email.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
+    "/SourceSansPro-Regular.ttf": "48d6928e08ba5e2ca1e15d754c146580b1c8febd",
+    "/assets/fonts/source-sans-pro/OFL.txt": "776022200ed55beb7ba02ee971ad18d47b1ffa89",
+    "/assets/fonts/source-sans-pro/SourceSansPro-Black.ttf": "9f5e9f9165668260c574dcd07db63d6b90b98824",
+    "/assets/fonts/source-sans-pro/SourceSansPro-BlackItalic.ttf": "13cd3240c1ac5b97e2d4a4119600b3c36b868045",
+    "/assets/fonts/source-sans-pro/SourceSansPro-Bold.ttf": "167ac25366e252f07c090a8113910337f3d5255b",
+    "/assets/fonts/source-sans-pro/SourceSansPro-BoldItalic.ttf": "c320303ae126e23bd566d412916f68cc347d573f",
+    "/assets/fonts/source-sans-pro/SourceSansPro-ExtraLight.ttf": "48fe9c368a331044f7cb8ddf4db4feda40808993",
+    "/assets/fonts/source-sans-pro/SourceSansPro-ExtraLightItalic.ttf": "f51dcfb53d69e4f64c78263e20f67758b10d8c71",
+    "/assets/fonts/source-sans-pro/SourceSansPro-Italic.ttf": "1c774bad0dad64ee30d7f2e71e89891870a2d304",
+    "/assets/fonts/source-sans-pro/SourceSansPro-Light.ttf": "df208d4edf8bf13483beec5c5893a3f474755439",
+    "/assets/fonts/source-sans-pro/SourceSansPro-LightItalic.ttf": "c27caccb61ee5253eb83cb46ad5f3ebb4703d6a2",
+    "/assets/fonts/source-sans-pro/SourceSansPro-Regular.ttf": "48d6928e08ba5e2ca1e15d754c146580b1c8febd",
+    "/assets/fonts/source-sans-pro/SourceSansPro-SemiBold.ttf": "3eeb4bae47e308c768d8c65a89480159d4e0e7c2",
+    "/assets/fonts/source-sans-pro/SourceSansPro-SemiBoldItalic.ttf": "ddbf657592d067296ef891b03f17f452907c8a7b",
     "/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
     "/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
@@ -53,15 +82,16 @@
     "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
     "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/assets/images/archipelago-blue-email.png": "0919f4b2f3eb06acd7fc1de3ded61efa1bd7933b",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
     "/index.html": "58542caa7638bebd49f640cf203744f6129b0429",
-    "/main.js": "3f063dbdb429fbf0d5cf1749a4808bcb4ef30d7a",
+    "/main.js": "90a1802d68c954296f63570b4e663d4da13d3d4e",
     "/manifest.webmanifest": "4471f9d845a54bf29f7268eaa95795b58f0f7fbc",
     "/polyfills.js": "418cc1394d1656cf4824a57b1f71e179488ab96f",
     "/runtime.js": "dd5ebdac0641ec8787e2690060d514d44aae4987",
     "/scripts.js": "be4cc974aaf0db5763797f58328f7fe6ef374e45",
-    "/styles.css": "b113f8fc61647f15ce27afa545a1f8a3ca9cd58f",
-    "/vendor.js": "737ec8f6c02460370d65a96025939b0f490fd070"
+    "/styles.css": "b5b2369b845ab37872ee06b65591bfdc8c9891c1",
+    "/vendor.js": "452267ec6c8fc9691f71456203a893f7f838c78a"
   },
   "navigationUrls": [
     {
