@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1680543388540,
+  "timestamp": 1680564618941,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -85,7 +85,7 @@
     "/assets/images/archipelago-blue-email.png": "0919f4b2f3eb06acd7fc1de3ded61efa1bd7933b",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
     "/index.html": "58542caa7638bebd49f640cf203744f6129b0429",
-    "/main.js": "8fbee6e65a8fd1d75468f5a7f076034285f6925e",
+    "/main.js": "d00381f149234f5c8cd2545da238f01538cfcae9",
     "/manifest.webmanifest": "4471f9d845a54bf29f7268eaa95795b58f0f7fbc",
     "/polyfills.js": "9313507410360c43e2d2eb9f95ec6d2d4d63efd0",
     "/runtime.js": "dd5ebdac0641ec8787e2690060d514d44aae4987",

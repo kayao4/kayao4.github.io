@@ -417,12 +417,22 @@ class LoginComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  let currHomepage = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser.currHomepage;
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error && error !== 'not_found') {
+                    this.toastr.error(error, "Error");
+                    return;
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.toastr.error("Please authenticate again", "User ID or Email not defined");
+                    return;
+                  }
+                  let currHomepage = currUser.currHomepage;
                   this.router.navigate([currHomepage]);
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
+                this.toastr.error("Please authenticate again", "User ID or Email not defined");
               }
             } else {
               this.toastr.error("User does not exist", "Something went wrong");
@@ -439,17 +449,24 @@ class LoginComponent {
         return;
       }
       if (this.loginForm.valid) {
-        let usernames = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getAllUsernames();
-        for (let username of usernames) {
-          let thisUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(username);
-          if (thisUser.userEmail === this.loginForm.get('email')?.value) {
-            this.router.navigate(['login']);
+        let username = this.loginForm.get('email')?.value;
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(username).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error && error !== 'not_found') {
+            this.toastr.error(error, "Error");
             return;
           }
-        }
-        this.toastr.error("User email does not exist", "Invalid email");
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.toastr.error("User email not saved while online", "Invalid email");
+            return;
+          }
+          let currHomepage = currUser.currHomepage;
+          this.router.navigate([currHomepage]);
+        });
+      } else {
+        this.toastr.error("User email required", "Invalid form");
       }
-      this.toastr.error("User email required", "Invalid form");
     }
   }
 }
@@ -667,7 +684,7 @@ class SignUpComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
                   this.sending = true;
                   this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
                   this.userDetails.firstName = this.signupForm.get('firstName')?.value;
@@ -1539,8 +1556,23 @@ class GillNetReportComponent {
     this.spinnerIncrement = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_12__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -1549,22 +1581,28 @@ class GillNetReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "Cannot get user data");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -2596,8 +2634,23 @@ class SeineReportComponent {
     this.spinnerIncrement = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_10__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -2606,22 +2659,28 @@ class SeineReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -3615,8 +3674,23 @@ class TrollReportComponent {
     this.spinnerIncrement = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_10__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -3625,22 +3699,28 @@ class TrollReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -5550,8 +5630,23 @@ class ContactInfoDialogComponent {
     });
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_7__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -5560,22 +5655,28 @@ class ContactInfoDialogComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -5632,7 +5733,7 @@ class ContactInfoDialogComponent {
   attemptUpdate() {
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_7__.OnlineStatusType.OFFLINE) {
       this.toastr.error("Cannot update while offline", "Profile update failed");
-      this.dialogRef.close('false');
+      return;
     }
     // verify phone number
     this.telInput.touched = true;
@@ -5648,7 +5749,7 @@ class ContactInfoDialogComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUser(id, email).then(() => {
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUserOnline(id, email).then(() => {
                   this.userDetails.contactEmail = this.profileForm.get('contactEmail')?.value;
                   this.userDetails.address = this.profileForm.get('address')?.value;
                   this.userDetails.city = this.profileForm.get('city')?.value;
@@ -6346,8 +6447,23 @@ class ActiveTripHomeComponent {
     this.currTrip = new src_app_data_models_trip_models_trip_model__WEBPACK_IMPORTED_MODULE_2__.Trip();
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_6__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -6356,22 +6472,28 @@ class ActiveTripHomeComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -6567,8 +6689,23 @@ class NoTripHomeComponent {
     this.prevTrips = [];
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_6__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -6577,22 +6714,28 @@ class NoTripHomeComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email undefined in database");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -6811,7 +6954,22 @@ class OffloadHomeComponent {
     this.userDetails = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_0__.UserData('', '');
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_5__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUserByUsername(currUsername);
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -6820,21 +6978,27 @@ class OffloadHomeComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.currUser;
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -7246,8 +7410,23 @@ class ProfileComponent {
     this.nets = [];
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_10__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -7256,22 +7435,28 @@ class ProfileComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -7302,7 +7487,24 @@ class ProfileComponent {
         // update selected vessel as new vessel added then go to next screen
         if (result !== 'false') {
           if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_10__.OnlineStatusType.OFFLINE) {
-            this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(this.userDetails.userEmail);
+            let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
+            if (currUsername) {
+              _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+                let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                if (error) {
+                  this.authenticationService.userDataLogout(error);
+                }
+                let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                if (!currUser || !currUser.userID || !currUser.userEmail) {
+                  this.authenticationService.userDataLogout("User ID or Email not defined");
+                } else {
+                  this.userDetails = currUser;
+                  this.toastr.success("Profile Updated!", "Success");
+                }
+              });
+            } else {
+              this.authenticationService.userDataLogout("Username not saved to storage");
+            }
           } else {
             this.auth.isAuthenticated$.subscribe(authd => {
               if (authd) {
@@ -7311,22 +7513,28 @@ class ProfileComponent {
                     let id = user.sub;
                     let email = user.email;
                     if (id && email) {
-                      _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                        this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                        this.toastr.success("Profile Information Updated!", "Success");
+                      _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                        let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                        if (error) {
+                          this.authenticationService.userDataLogout(error);
+                        }
+                        let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                        if (!currUser || !currUser.userID || !currUser.userEmail) {
+                          this.authenticationService.userDataLogout("User ID or Email is undefined");
+                        } else {
+                          this.userDetails = currUser;
+                          this.toastr.success("Profile Updated!", "Success");
+                        }
                       });
                     } else {
-                      this.toastr.error("Please authenticate again", "ID or Email not defined");
-                      this.authenticationService.logout();
+                      this.authenticationService.userDataLogout("User ID or email is undefined");
                     }
                   } else {
-                    this.toastr.error("Please authenticate again", "Cannot get user data");
-                    this.authenticationService.logout();
+                    this.authenticationService.userDataLogout("Cannot get user data");
                   }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "Not authenticated");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("Not authenticated");
               }
             });
           }
@@ -7346,6 +7554,7 @@ class ProfileComponent {
         if (result !== 'delete') {
           let newVessel = new _data_models_user_models_vessel_data_model__WEBPACK_IMPORTED_MODULE_2__.VesselData(result.vesselName, result.vesselNumber, true);
           this.userDetails.vessels.push(newVessel);
+          this.vessels = this.userDetails.vessels;
           _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
             this.toastr.success("New vessel added!", "Success");
           });
@@ -7365,6 +7574,7 @@ class ProfileComponent {
         if (result !== 'delete') {
           let newNet = new _data_models_trip_models_gear_models_net_model__WEBPACK_IMPORTED_MODULE_4__.Net(result.netType, result.netName, result.netLength, result.netDepth, result.netUnits, result.hangRatio, result.meshSize, result.meshUnits, result.numMeshes, result.numStrands, true);
           this.userDetails.nets.push(newNet);
+          this.nets = this.userDetails.nets;
           _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
             this.toastr.success("New net added!", "Success");
           });
@@ -8576,8 +8786,23 @@ class RecordsPageComponent {
     this.selectedVesselCount = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_9__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -8586,22 +8811,28 @@ class RecordsPageComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -8836,8 +9067,23 @@ class MenuComponent {
   toCurrentHome() {
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_3__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.router.navigate([this.userDetails.currHomepage]);
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.router.navigate([this.userDetails.currHomepage]);
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -8846,22 +9092,28 @@ class MenuComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.router.navigate([this.userDetails.currHomepage]);
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.router.navigate([this.userDetails.currHomepage]);
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -9020,8 +9272,23 @@ class CancelReportComponent {
     this.cancelReport = new src_app_data_models_report_models_cancel_report_model__WEBPACK_IMPORTED_MODULE_3__.CancelReport();
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_5__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -9030,22 +9297,28 @@ class CancelReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -9434,8 +9707,23 @@ class EndReportComponent {
     this.spinnerIncrement = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_7__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -9444,22 +9732,28 @@ class EndReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -10335,8 +10629,23 @@ class OffloadReportComponent {
     this.spinnerIncrement = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_11__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -10345,22 +10654,28 @@ class OffloadReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -10957,8 +11272,23 @@ class PauseReportComponent {
     this.spinnerIncrement = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_7__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -10967,22 +11297,28 @@ class PauseReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -11788,8 +12124,23 @@ class StartReportComponent {
     this.spinnerIncrement = 0;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_12__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserByUsername(currUsername);
-      this.initialize();
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+            this.initialize();
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -11798,22 +12149,28 @@ class StartReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  this.initialize();
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                    this.initialize();
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -12251,7 +12608,22 @@ class SubmittedReportComponent {
     this.reportName = this.router.getCurrentNavigation()?.extras.state?.name;
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_4__.OnlineStatusType.OFFLINE) {
       let currUsername = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.getCurrUsername();
-      this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.getUserByUsername(currUsername);
+      if (currUsername) {
+        _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.getUserOffline(currUsername).then(() => {
+          let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.error;
+          if (error) {
+            this.authenticationService.userDataLogout(error);
+          }
+          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.currUser;
+          if (!currUser || !currUser.userID || !currUser.userEmail) {
+            this.authenticationService.userDataLogout("User ID or Email not defined");
+          } else {
+            this.userDetails = currUser;
+          }
+        });
+      } else {
+        this.authenticationService.userDataLogout("Username not saved to storage");
+      }
     } else {
       this.auth.isAuthenticated$.subscribe(authd => {
         if (authd) {
@@ -12260,21 +12632,27 @@ class SubmittedReportComponent {
               let id = user.sub;
               let email = user.email;
               if (id && email) {
-                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.getUser(id, email).then(() => {
-                  this.userDetails = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.currUser;
+                _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.getUserOnline(id, email).then(() => {
+                  let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.error;
+                  if (error) {
+                    this.authenticationService.userDataLogout(error);
+                  }
+                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_2__.LocalStorageService.currUser;
+                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                    this.authenticationService.userDataLogout("User ID or Email is undefined");
+                  } else {
+                    this.userDetails = currUser;
+                  }
                 });
               } else {
-                this.toastr.error("Please authenticate again", "ID or Email not defined");
-                this.authenticationService.logout();
+                this.authenticationService.userDataLogout("User ID or email is undefined");
               }
             } else {
-              this.toastr.error("Please authenticate again", "Cannot get user data");
-              this.authenticationService.logout();
+              this.authenticationService.userDataLogout("Cannot get user data");
             }
           });
         } else {
-          this.toastr.error("Please authenticate again", "Not authenticated");
-          this.authenticationService.logout();
+          this.authenticationService.userDataLogout("Not authenticated");
         }
       });
     }
@@ -12343,10 +12721,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var ngx_online_status__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-online-status */ 9616);
 /* harmony import */ var _local_storage_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./local-storage.service */ 8345);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 4666);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _auth0_auth0_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @auth0/auth0-angular */ 9226);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ 4817);
+
 
 
 
@@ -12355,15 +12735,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AuthenticationService {
-  constructor(auth, router, onlineStatusService, document) {
+  constructor(auth, router, toastr, onlineStatusService, document) {
     this.auth = auth;
     this.router = router;
+    this.toastr = toastr;
     this.onlineStatusService = onlineStatusService;
     this.document = document;
   }
+  // if a user data error occurs, log out of the app
+  userDataLogout(header) {
+    this.toastr.error("Returning to login...", header);
+    this.logout();
+  }
   // log out of account and go back to login screen
   logout() {
-    _local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.removeCurrUsername();
+    _local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.clearCurrUser();
     if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_1__.OnlineStatusType.OFFLINE) {
       this.router.navigate(['login']);
       return;
@@ -12376,7 +12762,7 @@ class AuthenticationService {
   }
 }
 AuthenticationService.ɵfac = function AuthenticationService_Factory(t) {
-  return new (t || AuthenticationService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_auth0_auth0_angular__WEBPACK_IMPORTED_MODULE_3__.AuthService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](ngx_online_status__WEBPACK_IMPORTED_MODULE_1__.OnlineStatusService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_5__.DOCUMENT));
+  return new (t || AuthenticationService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_auth0_auth0_angular__WEBPACK_IMPORTED_MODULE_3__.AuthService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_5__.ToastrService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](ngx_online_status__WEBPACK_IMPORTED_MODULE_1__.OnlineStatusService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common__WEBPACK_IMPORTED_MODULE_6__.DOCUMENT));
 };
 AuthenticationService.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({
   token: AuthenticationService,
@@ -12437,17 +12823,13 @@ class LocalStorageService {
   static saveData(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
   }
-  // get data from key
+  // get local storage data from key
   static getData(key) {
     let item = localStorage.getItem(key);
     if (item) {
       return JSON.parse(item);
     }
     return null;
-  }
-  // remove data given key
-  static removeData(key) {
-    localStorage.removeItem(key);
   }
   // open PouchDB
   static openPouchDB() {
@@ -12456,57 +12838,52 @@ class LocalStorageService {
       auto_compaction: true
     });
   }
-  // get current user or create new user in PouchDB
-  static getUser(id, email) {
+  // get current user or create new user in PouchDB online
+  static getUserOnline(id, email) {
     return new Promise(res => {
-      LocalStorageService.storage.get(id).then(doc => {
+      LocalStorageService.storage.get(email).then(doc => {
         console.log("User:", doc);
-        LocalStorageService.validateGetUser(doc, id, email);
+        LocalStorageService.validateGetUserOnline(doc, id, email);
         res(true);
       }).catch(function (err) {
-        console.log("Error:", err.name);
+        LocalStorageService.error = err.name;
+        console.log("Error:", LocalStorageService.error);
         if (err.name === 'not_found') {
           console.log("User not found, creating user...");
           let newUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData(id, email);
           newUser.gears = LocalStorageService.setGears();
           newUser.currHomepage = LocalStorageService.setHomepage();
+          LocalStorageService.saveCurrUsername(email);
           LocalStorageService.currUser = newUser;
           LocalStorageService.storage.put({
-            _id: id,
+            _id: email,
             user: newUser
           });
           res(true);
         }
-        console.log("Cannot create user");
-        res(false);
       });
     });
   }
-  // save user data to PouchDB
-  static saveUser(userData) {
+  // get current user or create new user in PouchDB
+  static getUserOffline(email) {
     return new Promise(res => {
-      let id = userData.userID;
-      LocalStorageService.storage.get(id).then(doc => {
+      LocalStorageService.storage.get(email).then(doc => {
         console.log("User:", doc);
-        LocalStorageService.validateSaveUser(doc, userData);
+        LocalStorageService.validateGetUserOffline(doc);
         res(true);
       }).catch(function (err) {
-        console.log("Error:", err.name);
+        LocalStorageService.error = err.name;
+        console.log("Error:", LocalStorageService.error);
         if (err.name === 'not_found') {
-          console.log("User not found, creating user...");
-          LocalStorageService.storage.put({
-            _id: id,
-            user: userData
-          });
-          res(true);
+          console.log("User not found");
+          LocalStorageService.currUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
+          res(false);
         }
-        console.log("Cannot create user");
-        res(false);
       });
     });
   }
   // ensure that user data exists
-  static validateGetUser(doc, id, email) {
+  static validateGetUserOnline(doc, id, email) {
     let user = doc.user;
     let thisUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
     if (!user || !user.userID || !user.userEmail) {
@@ -12515,12 +12892,29 @@ class LocalStorageService {
       thisUser.userEmail = email;
       thisUser.gears = LocalStorageService.setGears();
       thisUser.currHomepage = LocalStorageService.setHomepage();
+      LocalStorageService.saveCurrUsername(thisUser.userEmail);
       LocalStorageService.currUser = thisUser;
       doc.user = thisUser;
       LocalStorageService.storage.put(doc);
       return;
     }
     // get user data
+    LocalStorageService.parseUserData(user, thisUser);
+  }
+  // ensure that user data exists
+  static validateGetUserOffline(doc) {
+    let user = doc.user;
+    let thisUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
+    if (!user || !user.userID || !user.userEmail) {
+      console.log("User data corrupted");
+      LocalStorageService.currUser = thisUser;
+      return;
+    }
+    // get user data
+    LocalStorageService.parseUserData(user, thisUser);
+  }
+  // parse all of the possible data from PouchDB into a UserData object
+  static parseUserData(user, thisUser) {
     thisUser.userID = user.userID;
     thisUser.userEmail = user.userEmail;
     thisUser.firstName = user.firstName ?? '';
@@ -12537,43 +12931,40 @@ class LocalStorageService {
     thisUser.prevTrips = LocalStorageService.validatePrevTrips(user.prevTrips);
     thisUser.nets = LocalStorageService.validateNets(user.nets);
     thisUser.currHomepage = LocalStorageService.validateHomepage(user.currHomepage);
+    LocalStorageService.saveCurrUsername(thisUser.userEmail);
     LocalStorageService.currUser = thisUser;
+    LocalStorageService.error = '';
+  }
+  // save user data to PouchDB
+  static saveUser(userData) {
+    return new Promise(res => {
+      let email = userData.userEmail;
+      LocalStorageService.storage.get(email).then(doc => {
+        console.log("User:", doc);
+        LocalStorageService.validateSaveUser(doc, userData);
+        res(true);
+      }).catch(function (err) {
+        LocalStorageService.error = err.name;
+        console.log("Error:", LocalStorageService.error);
+        if (err.name === 'not_found') {
+          console.log("User not found, creating user...");
+          LocalStorageService.storage.put({
+            _id: email,
+            user: userData
+          });
+          res(true);
+        }
+      });
+    });
   }
   // ensure that user data exists
   static validateSaveUser(doc, userData) {
+    LocalStorageService.saveCurrUsername(userData.userEmail);
     LocalStorageService.currUser = userData;
     doc.user = userData;
     LocalStorageService.storage.put(doc);
   }
-  // get current user data (offline data retrieval)
-  static getUserByUsername(username) {
-    let user = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
-    // get JSON string of all user data
-    let userString = LocalStorageService.getData(username);
-    // check if mandatory userString values are defined
-    if (!userString || !userString.userID || !userString.userEmail) {
-      return user;
-    }
-    user.userID = userString.userID;
-    user.userEmail = userString.userEmail;
-    user.firstName = userString.firstName ?? '';
-    user.lastName = userString.lastName ?? '';
-    user.contactEmail = userString.contactEmail ?? '';
-    user.address = userString.address ?? '';
-    user.city = userString.city ?? '';
-    user.postalCode = userString.postalCode ?? '';
-    user.phoneNum = LocalStorageService.validatePhoneNum(userString.phoneNum);
-    user.gears = LocalStorageService.validateGears(userString.gears);
-    user.vessels = LocalStorageService.validateVessels(userString.vessels);
-    user.currTrip = LocalStorageService.validateCurrTrip(userString.currTrip);
-    user.currTrip.startFishingReport = LocalStorageService.validateStartFishingReport(userString.currTrip.startFishingReport);
-    user.prevTrips = LocalStorageService.validatePrevTrips(userString.prevTrips);
-    user.nets = LocalStorageService.validateNets(userString.nets);
-    user.currHomepage = LocalStorageService.validateHomepage(userString.currHomepage);
-    LocalStorageService.saveData(username, user);
-    return user;
-  }
-  // save the current user ID for offline data retrieval
+  // save the current user Auth0 email for offline data retrieval
   static saveCurrUsername(username) {
     LocalStorageService.saveData('username', username);
   }
@@ -12581,11 +12972,10 @@ class LocalStorageService {
   static getCurrUsername() {
     return LocalStorageService.getData('username');
   }
-  static removeCurrUsername() {
-    LocalStorageService.removeData('username');
-  }
-  static getAllUsernames() {
-    return LocalStorageService.getStringList('usernames');
+  // clear current username from local storage
+  static clearCurrUser() {
+    LocalStorageService.currUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
+    LocalStorageService.saveData('username', '');
   }
   // check if homepage is defined
   static validateHomepage(homepage) {
@@ -12706,7 +13096,7 @@ class LocalStorageService {
     if (!cancelReport) {
       return LocalStorageService.setCancelReport();
     }
-    let userCancelReport = new _data_models_report_models_end_report_model__WEBPACK_IMPORTED_MODULE_11__.EndReport();
+    let userCancelReport = new _data_models_report_models_cancel_report_model__WEBPACK_IMPORTED_MODULE_12__.CancelReport();
     userCancelReport.confirmationNumber = cancelReport.confirmationNumber ?? '';
     userCancelReport.submissionDate = LocalStorageService.validateDate(cancelReport.submissionDate);
     userCancelReport.isComplete = cancelReport.isComplete ?? false;
@@ -12840,20 +13230,6 @@ class LocalStorageService {
   static getPhoneNum(phoneNum) {
     return new _tel_input_tel_input_component__WEBPACK_IMPORTED_MODULE_7__.Tel(phoneNum.area.toString(), phoneNum.exchange.toString(), phoneNum.subscriber.toString());
   }
-  // get list of strings from PouchDB
-  static getStringList(name) {
-    let stringList = LocalStorageService.getData(name);
-    // if string list does not exist, set it again
-    if (!stringList) {
-      LocalStorageService.saveData(name, []);
-      return LocalStorageService.getData(name);
-    }
-    let stringArray = [];
-    for (let currString of stringList) {
-      stringArray.push(currString.toString());
-    }
-    return stringArray;
-  }
   // set the sign up page to a new user
   static setHomepage() {
     return 'sign-up';
@@ -12875,6 +13251,7 @@ class LocalStorageService {
     return new _data_models_trip_models_trip_model__WEBPACK_IMPORTED_MODULE_6__.Trip();
   }
   // set standardized gears
+  // will change when we implement purchasable logbooks
   static setGears() {
     return [new _data_models_trip_models_gear_models_gear_model__WEBPACK_IMPORTED_MODULE_5__.Gear('Gill Net', '1111', true), new _data_models_trip_models_gear_models_gear_model__WEBPACK_IMPORTED_MODULE_5__.Gear('Seine', '2222'), new _data_models_trip_models_gear_models_gear_model__WEBPACK_IMPORTED_MODULE_5__.Gear('Troll', '3333')];
   }
@@ -12917,6 +13294,7 @@ class LocalStorageService {
   }
 }
 LocalStorageService.currUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
+LocalStorageService.error = '';
 LocalStorageService.ɵfac = function LocalStorageService_Factory(t) {
   return new (t || LocalStorageService)();
 };
