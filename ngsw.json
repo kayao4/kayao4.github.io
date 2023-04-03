@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1680025966825,
+  "timestamp": 1680542642307,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -53,7 +53,16 @@
         "/assets/icons/icon-512x512.png",
         "/assets/icons/icon-72x72.png",
         "/assets/icons/icon-96x96.png",
-        "/assets/images/archipelago-blue-email.png"
+        "/assets/images/archipelago-blue-email.png",
+        "/assets/pdfs/ggearareamapCDEforGillnet.PDF",
+        "/assets/pdfs/ggearareamapsprintABforSeine.pdf",
+        "/assets/pdfs/hLogbook Subareas For Nets.pdf",
+        "/assets/pdfs/icommongroundfish_poster.pdf",
+        "/assets/pdfs/jPacific_Coastal_Birds_2012.pdf",
+        "/assets/pdfs/kBCCSN ID Guide_2010 revised.pdf",
+        "/assets/pdfs/lSturgeon ID Sheet_RG.pdf",
+        "/assets/pdfs/lgearareamapsF-H.pdf",
+        "/assets/pdfs/mLogbook Zones and Subareas For Troll - colour.pdf"
       ],
       "patterns": []
     }
@@ -83,15 +92,24 @@
     "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/assets/images/archipelago-blue-email.png": "0919f4b2f3eb06acd7fc1de3ded61efa1bd7933b",
+    "/assets/pdfs/ggearareamapCDEforGillnet.PDF": "05e230ee5541479fd99c4e16e0938d07ab57e845",
+    "/assets/pdfs/ggearareamapsprintABforSeine.pdf": "3ba86ee9d58231bffd9350ebd8aaa0560c2aa3b4",
+    "/assets/pdfs/hLogbook Subareas For Nets.pdf": "47dc4ae104475dc3c0e93168dadf7c3c22647510",
+    "/assets/pdfs/icommongroundfish_poster.pdf": "da2c1152cc9069b2ca0641dc53d251d2363bb574",
+    "/assets/pdfs/jPacific_Coastal_Birds_2012.pdf": "21286839a7fc67ab041bf121d819b6ef93968f33",
+    "/assets/pdfs/kBCCSN ID Guide_2010 revised.pdf": "bec4eb7ad8cbfa862017a4dea54ff7f53fa34b28",
+    "/assets/pdfs/lSturgeon ID Sheet_RG.pdf": "7311c9a11a54510d46079c04fb136ed70ed9da92",
+    "/assets/pdfs/lgearareamapsF-H.pdf": "ed3e3b69b161c573befefa5f223f1d9d39f6bb9e",
+    "/assets/pdfs/mLogbook Zones and Subareas For Troll - colour.pdf": "fb2a3b05cb5c0a87fa30526597694e75ac443f50",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
     "/index.html": "58542caa7638bebd49f640cf203744f6129b0429",
-    "/main.js": "d6e2754910fe2e37ae2e3e2a79765cb8b7fecea9",
+    "/main.js": "38b2ca822f3d317d0169b4f81c44ca84c8354e0b",
     "/manifest.webmanifest": "4471f9d845a54bf29f7268eaa95795b58f0f7fbc",
     "/polyfills.js": "418cc1394d1656cf4824a57b1f71e179488ab96f",
-    "/runtime.js": "dd5ebdac0641ec8787e2690060d514d44aae4987",
+    "/runtime.js": "5c8c3f3aa046c2f5597076b26ebb592bb349fc88",
     "/scripts.js": "be4cc974aaf0db5763797f58328f7fe6ef374e45",
     "/styles.css": "b5b2369b845ab37872ee06b65591bfdc8c9891c1",
-    "/vendor.js": "6604ca166d874dfe289aa7b2b6e06c1087089a46"
+    "/vendor.js": "015b562ac68b5760592ddc02b325dd9f8c0b01af"
   },
   "navigationUrls": [
     {
