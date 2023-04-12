@@ -310,17 +310,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LoginComponent": () => (/* binding */ LoginComponent)
 /* harmony export */ });
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/local-storage.service */ 8345);
-/* harmony import */ var ngx_online_status__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-online-status */ 9616);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _auth0_auth0_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @auth0/auth0-angular */ 9226);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ 4817);
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/button */ 4522);
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/input */ 8562);
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/form-field */ 5074);
+/* harmony import */ var ngx_online_status__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-online-status */ 9616);
+/* harmony import */ var _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../data-models/user-models/user-data.model */ 426);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _auth0_auth0_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @auth0/auth0-angular */ 9226);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toastr */ 4817);
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/button */ 4522);
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/input */ 8562);
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/form-field */ 5074);
+
 
 
 
@@ -337,22 +339,22 @@ __webpack_require__.r(__webpack_exports__);
 
 function LoginComponent_form_10_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "form", 9)(1, "h6", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, " Email ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "mat-form-field", 11)(4, "mat-label");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, " Email ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](6, "input", 12);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "mat-error");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "form", 9)(1, "h6", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](2, " Email ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "mat-form-field", 11)(4, "mat-label");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](5, " Email ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](6, "input", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](7, "mat-error");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()();
   }
   if (rf & 2) {
-    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("formGroup", ctx_r0.loginForm);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx_r0.emailError, " ");
+    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("formGroup", ctx_r0.loginForm);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](8);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", ctx_r0.emailError, " ");
   }
 }
 class LoginComponent {
@@ -366,12 +368,14 @@ class LoginComponent {
     this.isOnline = false;
     this.onlineStatus = '';
     this.loginButton = '';
+    // current user data
+    this.currUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
     // form validator error messages
     this.emailError = 'Required';
-    this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__.UntypedFormGroup({
-      email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormControl('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.email])
+    this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.UntypedFormGroup({
+      email: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.email])
     });
-    if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_3__.OnlineStatusType.ONLINE) {
+    if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_4__.OnlineStatusType.ONLINE) {
       this.isOnline = true;
       this.onlineStatus = 'online';
       this.loginButton = 'Login or Sign Up with Auth0';
@@ -394,11 +398,35 @@ class LoginComponent {
       }
     });
   }
+  // completes login by redirecting user to their current homepage
+  completeLogin() {
+    let currHomepage = this.currUser.currHomepage;
+    this.router.navigate([currHomepage]);
+  }
+  displaySyncError() {
+    this.toastr.error("Unable to Sync Data", "Error");
+  }
+  // set up the users pouch for common data
+  // setUpCommonPouch(): void {
+  //   LocalStorageService.initializeCommonDB(); // open or create a common pouch
+  //   LocalStorageService.pullCommonData().then(() => {  // pull data from common couch
+  //     let error: string = LocalStorageService.error;
+  //     if (error) { // do not log in if data cannot be synced
+  //       this.displaySyncError();
+  //       return;
+  //     } else { // complete login if common data is pulled successfully
+  //       this.completeLogin(); 
+  //     }
+  //   }).catch((err) => {
+  //     console.log(err);
+  //     this.displaySyncError();
+  //   });
+  // }
   // press the login button
   attemptLogin() {
     // attempt to login with the entered credentials
     // solution from https://community.auth0.com/t/isauthenticated-is-always-false/84794/3
-    if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_3__.OnlineStatusType.ONLINE) {
+    if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_4__.OnlineStatusType.ONLINE) {
       // if went offline while on page, reload app
       if (!this.isOnline) {
         window.location.reload();
@@ -434,13 +462,12 @@ class LoginComponent {
                     this.toastr.error(error, "Error");
                     return;
                   }
-                  let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-                  if (!currUser || !currUser.userID || !currUser.userEmail) {
+                  this.currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+                  if (!this.currUser || !this.currUser.userID || !this.currUser.userEmail) {
                     this.toastr.error("Please authenticate again", "User ID or Email not defined");
                     return;
                   }
-                  let currHomepage = currUser.currHomepage;
-                  this.router.navigate([currHomepage]);
+                  this.completeLogin();
                 });
               } else {
                 this.toastr.error("Please authenticate again", "User ID or Email not defined");
@@ -467,13 +494,12 @@ class LoginComponent {
             this.toastr.error(error, "Error");
             return;
           }
-          let currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
-          if (!currUser || !currUser.userID || !currUser.userEmail) {
+          this.currUser = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.currUser;
+          if (!this.currUser || !this.currUser.userID || !this.currUser.userEmail) {
             this.toastr.error("User email not saved while online", "Invalid email");
             return;
           }
-          let currHomepage = currUser.currHomepage;
-          this.router.navigate([currHomepage]);
+          this.completeLogin();
         });
       } else {
         this.toastr.error("User email required", "Invalid form");
@@ -482,9 +508,9 @@ class LoginComponent {
   }
 }
 LoginComponent.ɵfac = function LoginComponent_Factory(t) {
-  return new (t || LoginComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_auth0_auth0_angular__WEBPACK_IMPORTED_MODULE_4__.AuthService), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_5__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](ngx_online_status__WEBPACK_IMPORTED_MODULE_3__.OnlineStatusService), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_6__.ToastrService), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_7__.DOCUMENT));
+  return new (t || LoginComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_auth0_auth0_angular__WEBPACK_IMPORTED_MODULE_5__.AuthService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__.Router), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](ngx_online_status__WEBPACK_IMPORTED_MODULE_4__.OnlineStatusService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_7__.ToastrService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdirectiveInject"](_angular_common__WEBPACK_IMPORTED_MODULE_8__.DOCUMENT));
 };
-LoginComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+LoginComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineComponent"]({
   type: LoginComponent,
   selectors: [["app-login"]],
   decls: 14,
@@ -492,33 +518,33 @@ LoginComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["
   consts: [[1, "container", "login-container"], [1, "row", "justify-content-center"], [1, "col", "login-image"], ["src", "../../../assets/images/archipelago-blue-email.png", "width", "300", 1, "center"], [1, "row"], [1, "login-title"], [1, "login-subtitle"], ["class", "row", 3, "formGroup", 4, "ngIf"], ["mat-flat-button", "", "type", "submit", 1, "login-button", 3, "click"], [1, "row", 3, "formGroup"], [1, "blue-heading"], ["appearance", "outline", 1, "form-field"], ["matInput", "", "required", "", "formControlName", "email"]],
   template: function LoginComponent_Template(rf, ctx) {
     if (rf & 1) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0)(1, "div", 1)(2, "div", 2);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](3, "img", 3);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "div", 4)(5, "h1", 5);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, " Login ");
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div", 4)(8, "h2", 6);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](10, LoginComponent_form_10_Template, 9, 2, "form", 7);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](11, "div", 1)(12, "button", 8);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function LoginComponent_Template_button_click_12_listener() {
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 0)(1, "div", 1)(2, "div", 2);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](3, "img", 3);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](4, "div", 4)(5, "h1", 5);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](6, " Login ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](7, "div", 4)(8, "h2", 6);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](9);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](10, LoginComponent_form_10_Template, 9, 2, "form", 7);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](11, "div", 1)(12, "button", 8);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("click", function LoginComponent_Template_button_click_12_listener() {
         return ctx.attemptLogin();
       });
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](13);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](13);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]()()();
     }
     if (rf & 2) {
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](9);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" You are currently ", ctx.onlineStatus, " ");
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx.isOnline);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
-      _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", ctx.loginButton, " ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](9);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" You are currently ", ctx.onlineStatus, " ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", !ctx.isOnline);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](3);
+      _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtextInterpolate1"](" ", ctx.loginButton, " ");
     }
   },
-  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_7__.NgIf, _angular_material_button__WEBPACK_IMPORTED_MODULE_8__.MatButton, _angular_material_input__WEBPACK_IMPORTED_MODULE_9__.MatInput, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__.MatFormField, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__.MatLabel, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__.MatError, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.RequiredValidator, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormGroupDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormControlName],
+  dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_8__.NgIf, _angular_material_button__WEBPACK_IMPORTED_MODULE_9__.MatButton, _angular_material_input__WEBPACK_IMPORTED_MODULE_10__.MatInput, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__.MatFormField, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__.MatLabel, _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__.MatError, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵNgNoValidate"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NgControlStatusGroup, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.RequiredValidator, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormGroupDirective, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControlName],
   styles: [".login-container[_ngcontent-%COMP%] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100%;\r\n  padding-top: 20px;\r\n}\r\n\r\n\r\n.login-image[_ngcontent-%COMP%] {\r\n  margin-bottom: 50px;\r\n}\r\n\r\n\r\n.login-title[_ngcontent-%COMP%] {\r\n  text-align: center;\r\n  color: #004165;\r\n  font-weight: bold;\r\n  font-size: 40px;\r\n}\r\n\r\n\r\n.login-subtitle[_ngcontent-%COMP%] {\r\n  text-align: center;\r\n  color: #004165;\r\n  font-weight: bold;\r\n  font-size: 20px;\r\n}\r\n\r\n\r\n.login-button[_ngcontent-%COMP%] {\r\n  background-color: #ff6f61 !important;\r\n  color: white !important;\r\n}\r\n\r\n\r\n.center[_ngcontent-%COMP%] {\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto;\r\n}\r\n\r\n\r\n.blue-heading[_ngcontent-%COMP%] {\r\n  color: #005d87 !important;\r\n  margin-top: 5%;\r\n}\r\n\r\n\r\n.form-field[_ngcontent-%COMP%] {\r\n  font-weight: bold;\r\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvYXV0aGVudGljYXRpb24vbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxzQ0FBc0M7QUFDdEM7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLFlBQVk7RUFDWixpQkFBaUI7QUFDbkI7O0FBRUEscUJBQXFCO0FBQ3JCO0VBQ0UsbUJBQW1CO0FBQ3JCOztBQUVBLGtCQUFrQjtBQUNsQjtFQUNFLGtCQUFrQjtFQUNsQixjQUFjO0VBQ2QsaUJBQWlCO0VBQ2pCLGVBQWU7QUFDakI7O0FBRUEsaUNBQWlDO0FBQ2pDO0VBQ0Usa0JBQWtCO0VBQ2xCLGNBQWM7RUFDZCxpQkFBaUI7RUFDakIsZUFBZTtBQUNqQjs7QUFFQSxxQkFBcUI7QUFDckI7RUFDRSxvQ0FBb0M7RUFDcEMsdUJBQXVCO0FBQ3pCOztBQUVBLGlCQUFpQjtBQUNqQjtFQUNFLGNBQWM7RUFDZCxpQkFBaUI7RUFDakIsa0JBQWtCO0FBQ3BCOztBQUVBLCtCQUErQjtBQUMvQjtFQUNFLHlCQUF5QjtFQUN6QixjQUFjO0FBQ2hCOztBQUVBLHFCQUFxQjtBQUNyQjtFQUNFLGlCQUFpQjtBQUNuQiIsInNvdXJjZXNDb250ZW50IjpbIi8qIE90aGVyIGxvZ2luIGNvbnRhaW5lciBzdHlsaXphdGlvbiAqL1xyXG4ubG9naW4tY29udGFpbmVyIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIHBhZGRpbmctdG9wOiAyMHB4O1xyXG59XHJcblxyXG4vKiBBcmNoaXBlbGFnbyBsb2dvICovXHJcbi5sb2dpbi1pbWFnZSB7XHJcbiAgbWFyZ2luLWJvdHRvbTogNTBweDtcclxufVxyXG5cclxuLyogQkMgU1JJRiBMb2dpbiAqL1xyXG4ubG9naW4tdGl0bGUge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBjb2xvcjogIzAwNDE2NTtcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBmb250LXNpemU6IDQwcHg7XHJcbn1cclxuXHJcbi8qIFlvdSBhcmUgY3VycmVudGx5IG9uL29mZmxpbmUgKi9cclxuLmxvZ2luLXN1YnRpdGxlIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgY29sb3I6ICMwMDQxNjU7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgZm9udC1zaXplOiAyMHB4O1xyXG59XHJcblxyXG4vKiBMb2dpbiB0byBhY2NvdW50ICovXHJcbi5sb2dpbi1idXR0b24ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNmZjZmNjEgIWltcG9ydGFudDtcclxuICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG5cclxuLyogQWxpZ24gY2VudHJlICovXHJcbi5jZW50ZXIge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIG1hcmdpbi1sZWZ0OiBhdXRvO1xyXG4gIG1hcmdpbi1yaWdodDogYXV0bztcclxufVxyXG5cclxuLyogQmx1ZSB0ZXh0IGZvciBlbnRyeSBmaWVsZHMgKi9cclxuLmJsdWUtaGVhZGluZyB7XHJcbiAgY29sb3I6ICMwMDVkODcgIWltcG9ydGFudDtcclxuICBtYXJnaW4tdG9wOiA1JTtcclxufVxyXG5cclxuLyogRm9yIGlucHV0IGZpZWxkcyAqL1xyXG4uZm9ybS1maWVsZCB7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbn1cclxuIl0sInNvdXJjZVJvb3QiOiIifQ== */"]
 });
 
@@ -1718,7 +1744,6 @@ class GillNetReportComponent {
     if (this.currPage <= this.numPages) {
       this.saveUserNets();
       _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-        console.log("User data saved to PouchDB");
         this.incrementPage();
       });
     }
@@ -1737,7 +1762,6 @@ class GillNetReportComponent {
     if (this.currPage === 1) {
       this.saveUserNets();
       _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-        console.log("User data saved to PouchDB");
         this.toHome();
       });
     } else {
@@ -1876,7 +1900,6 @@ class GillNetReportComponent {
     if (this.gillnetForm.valid && !this.netInvalid()) {
       this.saveCatchReport();
       _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-        console.log("User data saved to PouchDB");
         this.router.navigate(['submitted-report'], {
           state: {
             name: 'Daily Catch Report'
@@ -2876,7 +2899,6 @@ class SeineReportComponent {
     if (this.seineForm.valid) {
       this.saveCatchReport();
       _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-        console.log("User details saved to PouchDB");
         this.router.navigate(['submitted-report'], {
           state: {
             name: 'Daily Catch Report'
@@ -3928,7 +3950,6 @@ class TrollReportComponent {
     if (this.trollForm.valid) {
       this.saveCatchReport();
       _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-        console.log("User details saved to PouchDB");
         this.router.navigate(['submitted-report'], {
           state: {
             name: 'Daily Catch Report'
@@ -4440,7 +4461,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class LicenseArea {
   constructor(licenseName = '', licenseLocation = '', gearType = '', isChecked = false) {
-    this.licenseID = ''; // possibly remove
     this.licenseName = '';
     this.licenseLocation = '';
     this.gearType = '';
@@ -4461,6 +4481,7 @@ class LicenseArea {
   }
   // transform anonymous data into license area object
   static transformAnonymous(licenseArea) {
+    //console.log(licenseArea);
     return new LicenseArea(licenseArea.licenseName ?? '', licenseArea.licenseLocation ?? '', licenseArea.gearType ?? '', licenseArea.isChecked ?? false);
   }
 }
@@ -4544,7 +4565,7 @@ class UserData {
     // Auth0 ID
     this.userID = '';
     // Email for signup
-    this.userEmail = '';
+    this.userEmail = ''; // will eventually need to ensure this is unique
     this.firstName = '';
     this.lastName = '';
     this.contactEmail = '';
@@ -4933,9 +4954,7 @@ class AddLogbookDialogComponent {
     newLogbook.logbookID = this.logbookForm.get('logbookNumber')?.value;
     newLogbook.vessel = vessel;
     this.userDetails.gears.push(newLogbook);
-    _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-      console.log("User data saved to Pouch");
-    });
+    _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {});
   }
   closeDialog() {
     this.dialogRef.close('Back');
@@ -5221,7 +5240,7 @@ class AddNetDialogComponent {
       meshUnits: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]),
       numMeshes: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormControl('', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required])
     });
-    this.netTypes = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getNetTypes(); // retrieve net types
+    this.netTypes = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.netTypes; // retrieve net types
   }
 
   netTypeVal() {
@@ -6009,7 +6028,6 @@ class ContactInfoDialogComponent {
                   this.userDetails.postalCode = this.profileForm.get('postalCode')?.value;
                   this.userDetails.phoneNum = this.profileForm.get('phoneNum')?.value;
                   _services_local_storage_service__WEBPACK_IMPORTED_MODULE_3__.LocalStorageService.saveUser(this.userDetails).then(() => {
-                    console.log("User data saved to PouchDB");
                     this.dialogRef.close('true');
                   });
                 });
@@ -7067,13 +7085,13 @@ class NoTripHomeComponent {
       this.prevTrips = this.userDetails.prevTrips;
       this.prevTrips.push(tempTrip);
       this.userDetails.prevTrips = this.prevTrips;
+      this.clearTripData();
     }
   }
   initialize() {
     // get current fishing report information
     this.currTrip = this.userDetails.currTrip;
     this.saveOldReport();
-    this.clearTripData();
   }
   // go to start a fishing report
   toStartReport() {
@@ -7127,7 +7145,7 @@ NoTripHomeComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_
       _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵadvance"](7);
       _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵproperty"]("ngIf", ctx.userDetails.gears.length > 0);
       _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵadvance"](1);
-      _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵproperty"]("ngIf", !ctx.userDetails.gears.length);
+      _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵproperty"]("ngIf", ctx.userDetails.gears.length <= 0);
     }
   },
   dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_13__.NgIf, _angular_material_button__WEBPACK_IMPORTED_MODULE_14__.MatButton, _menu_menu_component__WEBPACK_IMPORTED_MODULE_6__.MenuComponent],
@@ -7328,7 +7346,6 @@ class OffloadHomeComponent {
   toNoTripHome() {
     this.userDetails.currHomepage = 'no-trip-home';
     _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.saveUser(this.userDetails).then(() => {
-      console.log("User data saved to PouchDB");
       this.router.navigate([this.userDetails.currHomepage]);
     });
   }
@@ -7537,12 +7554,12 @@ function ProfileComponent_mat_expansion_panel_62_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](6, "span", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](7);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]()()()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](8, "h6", 21)(9, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](8, "h6", 22)(9, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](10, "Registered Vessel: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](11);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](12, "h6", 21)(13, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](12, "h6", 22)(13, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](14, "Logbook ID: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](15);
@@ -7567,7 +7584,7 @@ function ProfileComponent_div_67_Template(rf, ctx) {
 }
 function ProfileComponent_div_68_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelement"](0, "div", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelement"](0, "div", 23);
   }
 }
 function ProfileComponent_div_69_span_5_Template(rf, ctx) {
@@ -7579,7 +7596,7 @@ function ProfileComponent_div_69_span_5_Template(rf, ctx) {
 }
 function ProfileComponent_div_69_mat_expansion_panel_6_h6_28_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](0, "h6", 21)(1, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](0, "h6", 22)(1, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](2, "Number of Strands: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](3);
@@ -7599,32 +7616,32 @@ function ProfileComponent_div_69_mat_expansion_panel_6_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](6, "span", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](7);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]()()()();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](8, "h6", 21)(9, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](8, "h6", 22)(9, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](10, "Length (in fathoms): ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](11);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](12, "h6", 21)(13, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](12, "h6", 22)(13, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](14, "Weedline Depth: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](15);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](16, "h6", 21)(17, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](16, "h6", 22)(17, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](18, "Hang Ratio ( :1): ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](19);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](20, "h6", 21)(21, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](20, "h6", 22)(21, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](22, "Mesh Size: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](23);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](24, "h6", 21)(25, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](24, "h6", 22)(25, "b");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](26, "Number of Meshes: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](27);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtemplate"](28, ProfileComponent_div_69_mat_expansion_panel_6_h6_28_Template, 4, 1, "h6", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtemplate"](28, ProfileComponent_div_69_mat_expansion_panel_6_h6_28_Template, 4, 1, "h6", 24);
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]();
   }
   if (rf & 2) {
@@ -7675,9 +7692,9 @@ function ProfileComponent_div_69_Template(rf, ctx) {
     _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵproperty"]("ngForOf", ctx_r4.nets);
   }
 }
-function ProfileComponent_div_70_Template(rf, ctx) {
+function ProfileComponent_div_75_Template(rf, ctx) {
   if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelement"](0, "div", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelement"](0, "div", 23);
   }
 }
 class ProfileComponent {
@@ -7750,6 +7767,22 @@ class ProfileComponent {
         }
       });
     }
+  }
+  updateData() {
+    _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.pullCommonData().then(() => {
+      let error = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.error;
+      if (error) {
+        // display error if data cannot be synced
+        this.toastr.error("Unable to Sync Data", "Error");
+        return;
+      } else {
+        // display message if data successfully synced
+        this.toastr.success("Data Synced!", "Success");
+      }
+    }).catch(err => {
+      console.log(err);
+      this.toastr.error("Unable to Sync Data", "Error");
+    });
   }
   // set page values
   initialize() {
@@ -7880,9 +7913,9 @@ ProfileComponent.ɵfac = function ProfileComponent_Factory(t) {
 ProfileComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵdefineComponent"]({
   type: ProfileComponent,
   selectors: [["app-profile"]],
-  decls: 71,
+  decls: 76,
   vars: 16,
-  consts: [[1, "container", "profile-container"], [1, "row"], ["align", "left", 1, "col"], [1, "blue-profile-heading"], ["align", "right", 1, "col"], [1, "row", "justify-content-center"], [1, "descriptive-text", 2, "margin-top", "10px"], [1, "field-data"], [1, "descriptive-text"], [1, "row", "info-section", 2, "margin-top", "15px"], [1, "blue-profile-subheading", 2, "padding-top", "10px"], [1, "button-row"], ["mat-raised-button", "", "type", "button", 1, "red-button", 3, "click"], [1, "row", "info-section"], [1, "row", 2, "padding-left", "10px"], ["class", "field-data", 4, "ngIf"], [4, "ngFor", "ngForOf"], [1, "button-row", 2, "padding-left", "10px"], ["class", "row info-section", 4, "ngIf"], ["class", "row info-section", "style", "margin-bottom: 20px;", 4, "ngIf"], [4, "ngIf"], [1, "field-data", 2, "font-size", "14px"], [1, "row", "info-section", 2, "margin-bottom", "20px"], ["class", "field-data", "style", "font-size: 14px;", 4, "ngIf"]],
+  consts: [[1, "container", "profile-container"], [1, "row"], ["align", "left", 1, "col"], [1, "blue-profile-heading"], ["align", "right", 1, "col"], [1, "row", "justify-content-center"], [1, "descriptive-text", 2, "margin-top", "10px"], [1, "field-data"], [1, "descriptive-text"], [1, "row", "info-section", 2, "margin-top", "15px"], [1, "blue-profile-subheading", 2, "padding-top", "10px"], [1, "button-row"], ["mat-raised-button", "", "type", "button", 1, "red-button", 3, "click"], [1, "row", "info-section"], [1, "row", 2, "padding-left", "10px"], ["class", "field-data", 4, "ngIf"], [4, "ngFor", "ngForOf"], [1, "button-row", 2, "padding-left", "10px"], ["class", "row info-section", 4, "ngIf"], ["class", "row info-section", "style", "margin-bottom: 20px;", 4, "ngIf"], [4, "ngIf"], [2, "text-align", "center"], [1, "field-data", 2, "font-size", "14px"], [1, "row", "info-section", 2, "margin-bottom", "20px"], ["class", "field-data", "style", "font-size: 14px;", 4, "ngIf"]],
   template: function ProfileComponent_Template(rf, ctx) {
     if (rf & 1) {
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h1", 3);
@@ -7968,7 +8001,14 @@ ProfileComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtemplate"](67, ProfileComponent_div_67_Template, 1, 0, "div", 18);
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtemplate"](68, ProfileComponent_div_68_Template, 1, 0, "div", 19);
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtemplate"](69, ProfileComponent_div_69_Template, 12, 2, "div", 20);
-      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtemplate"](70, ProfileComponent_div_70_Template, 1, 0, "div", 19);
+      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](70, "div", 14)(71, "div", 21)(72, "button", 12);
+      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵlistener"]("click", function ProfileComponent_Template_button_click_72_listener() {
+        return ctx.updateData();
+      });
+      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementStart"](73, "span");
+      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtext"](74, " Sync Data ");
+      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]()()()();
+      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵtemplate"](75, ProfileComponent_div_75_Template, 1, 0, "div", 19);
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵelementEnd"]()();
     }
     if (rf & 2) {
@@ -7998,7 +8038,7 @@ ProfileComponent.ɵcmp = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_8__
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵproperty"]("ngIf", !ctx.containsGillNet);
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵadvance"](1);
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵproperty"]("ngIf", ctx.containsGillNet);
-      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵadvance"](1);
+      _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵadvance"](6);
       _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵproperty"]("ngIf", ctx.containsGillNet);
     }
   },
@@ -9160,7 +9200,8 @@ class RecordsPageComponent {
     this.currTrip = this.userDetails.currTrip;
     // get data for filter list
     this.makeGearList(this.userDetails.gears);
-    this.makeLicenseAreaList(_services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getLicenseAreas());
+    //this.makeLicenseAreaList(LocalStorageService.getLicenseAreas());
+    this.makeLicenseAreaList(_services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.licenseAreas);
     this.makeVesselList(this.userDetails.vessels);
   }
   makeVesselList(vesselList) {
@@ -10064,7 +10105,6 @@ class CancelReportComponent {
   sendToDFO() {
     this.saveReport();
     _services_local_storage_service__WEBPACK_IMPORTED_MODULE_1__.LocalStorageService.saveUser(this.userDetails).then(() => {
-      console.log("User data saved to PouchDB");
       this.router.navigate(['submitted-report'], {
         state: {
           name: 'Cancel Fishing Report'
@@ -10576,7 +10616,6 @@ class EndReportComponent {
   updateHomepage(homeName) {
     this.userDetails.currHomepage = homeName;
     _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-      console.log("User data saved to PouchDB");
       this.router.navigate(['submitted-report'], {
         state: {
           name: 'End Fishing Report'
@@ -11656,7 +11695,6 @@ class OffloadReportComponent {
     // save to PouchDB
     this.userDetails.currTrip = this.currTrip;
     _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-      console.log("User data saved to PouchDB");
       this.router.navigate(['submitted-report'], {
         state: {
           name: 'Offload Catch Report'
@@ -12094,7 +12132,6 @@ class PauseReportComponent {
     // save currTrip to PouchDB
     this.userDetails.currTrip = this.currTrip;
     _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.saveUser(this.userDetails).then(() => {
-      console.log("User data saved to PouchDB");
       this.router.navigate(['submitted-report'], {
         state: {
           name: 'Pause Fishing Report'
@@ -12885,7 +12922,7 @@ class StartReportComponent {
     // get all gears, vessels, license areas
     this.gears = this.userDetails.gears;
     this.userVessels = this.userDetails.vessels;
-    this.licenseAreas = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.getLicenseAreas();
+    this.licenseAreas = _services_local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.licenseAreas;
     // set the start time to the current time
     this.startTime = {
       hour: this.startDate.getHours(),
@@ -12925,6 +12962,8 @@ class StartReportComponent {
       } else if (currGear.name === 'Troll') {
         licenseIndex = 5;
       }
+      console.log(this.licenseAreas);
+      console.log(this.licenseAreas[0]);
       currArea = this.setSelectedArea(new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_5__.LicenseArea('', ''), this.licenseAreas[licenseIndex]);
       this.startForm.controls['licenseArea'].setValue(currArea);
     }
@@ -12983,6 +13022,7 @@ class StartReportComponent {
         // to license area page
         case 1:
           let currArea = new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_5__.LicenseArea('', '');
+          console.log(this.startForm.get('licenseArea')?.value);
           currArea = this.setSelectedArea(currArea, _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_5__.LicenseArea.transformAnonymous(this.startForm.get('licenseArea')?.value));
           this.startForm.patchValue({
             licenseArea: currArea
@@ -13425,14 +13465,18 @@ class AuthenticationService {
   // log out of account and go back to login screen
   logout() {
     _local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.clearCurrUser();
-    if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_1__.OnlineStatusType.OFFLINE) {
-      this.router.navigate(['login']);
-      return;
-    }
-    this.auth.logout({
-      logoutParams: {
-        returnTo: this.document.location.origin
+    // Note for merging: we could call a single function here in localStorageService that then invokes both
+    // clearCurrUser() and closeCommonDb()
+    _local_storage_service__WEBPACK_IMPORTED_MODULE_0__.LocalStorageService.closeCommonDb().then(() => {
+      if (this.onlineStatusService.getStatus() === ngx_online_status__WEBPACK_IMPORTED_MODULE_1__.OnlineStatusType.OFFLINE) {
+        this.router.navigate(['login']);
+        return;
       }
+      this.auth.logout({
+        logoutParams: {
+          returnTo: this.document.location.origin
+        }
+      });
     });
   }
 }
@@ -13494,6 +13538,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class LocalStorageService {
   constructor() {}
+  // will need to change the common_couch URL once we are able to access each user's credentials (right now we are always using testUser)
+
   // save data to local storage through [key, value] pair
   static saveData(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
@@ -13506,6 +13552,89 @@ class LocalStorageService {
     }
     return null;
   }
+  /* ----------------- Common Pouch DB Methods ----------------- */
+  // open or create a pouch db for the user's common data
+  static initializeCommonDB() {
+    // a new common pouch db is created for each user (assuming userEmail is unique)
+    LocalStorageService.common_data = new pouchdb__WEBPACK_IMPORTED_MODULE_0__["default"]('common' + this.currUser.userEmail, {
+      revs_limit: 500,
+      auto_compaction: true
+    });
+  }
+  // use the data present in the common pouch documents to populate common data global variables
+  static initializeCommonData(docs) {
+    for (let currDoc of docs.rows) {
+      // console.log(doc);
+      switch (currDoc.id) {
+        case 'license_areas_list':
+          this.setLicenseAreas(currDoc.doc.license_areas);
+          break;
+        case 'net_types':
+          this.setNetTypes(currDoc.doc.nets);
+          break;
+        case 'table_rules':
+          this.setTableRules(currDoc.doc.rules);
+          break;
+        case 'species_list':
+          // TO-DO: in this PR
+          break;
+        case 'fishery_notices':
+          // TO-DO: in future PR
+          break;
+        case 'management_areas':
+          // TO-DO: in future PR
+          break;
+      }
+    }
+  }
+  // retrieve all documents present in the users common pouch
+  static getAllDocs() {
+    return new Promise(res => {
+      this.common_data.allDocs({
+        include_docs: true
+      }).then(docs => {
+        this.initializeCommonData(docs); // set the contents of the docs to the local storage global variables
+        res(true);
+      });
+    });
+  }
+  // pulls (not syncs) data from the common couch db
+  static pullCommonData() {
+    LocalStorageService.error = '';
+    return new Promise(res => {
+      LocalStorageService.common_data.replicate.from(this.common_couch).on('complete', () => {
+        console.log('pulled common data from couch');
+        this.getAllDocs().then(() => {
+          res(true);
+        });
+      }).on('error', err => {
+        LocalStorageService.error = err;
+        console.log('common data retrieval failed');
+        console.log(err);
+        res(true);
+      });
+    });
+  }
+  // close the user's common pouch db (invoked on logout)
+  static closeCommonDb() {
+    return new Promise(res => {
+      LocalStorageService.common_data.close().then(() => {
+        res(true);
+      }).catch(function (err) {
+        console.log("Error: ", err.name);
+        res(true);
+      });
+    });
+  }
+  static setLicenseAreas(areas) {
+    this.licenseAreas.length = 0; // clear any old data
+    for (let area of areas) {
+      let currLicenseArea = new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea();
+      currLicenseArea = _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea.transformAnonymous(area);
+      this.licenseAreas.push(currLicenseArea);
+    }
+  }
+  /* ----------------------------------------------------- */
   // open PouchDB
   static openPouchDB() {
     LocalStorageService.storage = new pouchdb__WEBPACK_IMPORTED_MODULE_0__["default"]('srif-pouchdb', {
@@ -13515,46 +13644,56 @@ class LocalStorageService {
   }
   // get current user or create new user in PouchDB online
   static getUserOnline(id, email) {
+    LocalStorageService.initializeCommonDB(); // open or create a common pouch
     LocalStorageService.error = '';
     return new Promise(res => {
-      LocalStorageService.storage.get(email).then(doc => {
-        console.log("User:", doc);
-        LocalStorageService.validateGetUserOnline(doc, id, email);
-        res(true);
-      }).catch(function (err) {
-        LocalStorageService.error = err.name;
-        console.log("Error:", LocalStorageService.error);
-        if (err.name === 'not_found') {
-          console.log("User not found, creating user...");
-          let newUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData(id, email);
-          newUser.currHomepage = LocalStorageService.setHomepage();
-          LocalStorageService.saveCurrUsername(email);
-          LocalStorageService.currUser = newUser;
-          LocalStorageService.storage.put({
-            _id: email,
-            user: newUser
-          });
+      LocalStorageService.pullCommonData().then(() => {
+        LocalStorageService.storage.get(email).then(doc => {
+          LocalStorageService.validateGetUserOnline(doc, id, email);
           res(true);
-        }
+        }).catch(function (err) {
+          LocalStorageService.error = err.name;
+          console.log("Error:", LocalStorageService.error);
+          if (err.name === 'not_found') {
+            console.log("User not found, creating user...");
+            let newUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData(id, email);
+            newUser.currHomepage = LocalStorageService.setHomepage();
+            LocalStorageService.saveCurrUsername(email);
+            LocalStorageService.currUser = newUser;
+            LocalStorageService.storage.put({
+              _id: email,
+              user: newUser
+            });
+            res(true);
+          }
+        });
+      }).catch(function (err) {
+        console.log("Error:", err.name);
+        res(true);
       });
     });
   }
   // get current user or create new user in PouchDB
   static getUserOffline(email) {
+    LocalStorageService.initializeCommonDB(); // open or create a common pouch
     LocalStorageService.error = '';
     return new Promise(res => {
-      LocalStorageService.storage.get(email).then(doc => {
-        console.log("User:", doc);
-        LocalStorageService.validateGetUserOffline(doc);
-        res(true);
+      LocalStorageService.getAllDocs().then(() => {
+        LocalStorageService.storage.get(email).then(doc => {
+          LocalStorageService.validateGetUserOffline(doc);
+          res(true);
+        }).catch(function (err) {
+          LocalStorageService.error = err.name;
+          console.log("Error:", LocalStorageService.error);
+          if (err.name === 'not_found') {
+            console.log("User not found");
+            LocalStorageService.currUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
+            res(false);
+          }
+        });
       }).catch(function (err) {
-        LocalStorageService.error = err.name;
-        console.log("Error:", LocalStorageService.error);
-        if (err.name === 'not_found') {
-          console.log("User not found");
-          LocalStorageService.currUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
-          res(false);
-        }
+        console.log("Error:", err.name);
+        res(true);
       });
     });
   }
@@ -13615,7 +13754,6 @@ class LocalStorageService {
     return new Promise(res => {
       let email = userData.userEmail;
       LocalStorageService.storage.get(email).then(doc => {
-        console.log("User:", doc);
         LocalStorageService.validateSaveUser(doc, userData);
         res(true);
       }).catch(function (err) {
@@ -13920,47 +14058,55 @@ class LocalStorageService {
   static setCurrTrip() {
     return new _data_models_trip_models_trip_model__WEBPACK_IMPORTED_MODULE_6__.Trip();
   }
-  // get license areas for start fishing report
-  static getLicenseAreas() {
-    return [new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("A", "Seine North", "Seine"), new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("B", "Seine South", "Seine"), new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("C", "Gillnet North", "Gill Net"), new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("D", "Gillnet Vancouver Island", "Gill Net"), new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("E", "Gillnet Fraser + VI", "Gill Net"), new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("F", "Troll North", "Troll"), new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("G", "Troll WCVI", "Troll"), new _data_models_trip_models_license_area_model__WEBPACK_IMPORTED_MODULE_3__.LicenseArea("H", "Troll Fraser", "Troll")];
-  }
   // NOTE: we will eventually get a species list from the DFO database
   // will need to put this into PouchDB when that happens
   static getSpeciesList() {
     return [new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Sockeye'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Coho'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Pink'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Chum'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Chinook'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Steelhead'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Atlantic'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Dogfish'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Green Sturgeon'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Grilse'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Jack Chinook'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Adult Chinook'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Legal Sized Chinook'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Sublegal Sized Chinook'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('White Sturgeon'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Mackerel'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Lingcod'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Halibut'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Aurora Rockfish'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Canary Rockfish'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('China Rockfish'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Tiger Rockfish'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Redbanded Rockfish'), new _data_models_catch_table_models_species_data_model__WEBPACK_IMPORTED_MODULE_4__.SpeciesData('Unknown Rockfish')];
   }
-  // get table rules for catch table data
-  static getTableRules(gearName) {
-    let newTable = new _data_models_catch_table_models_table_rules_model__WEBPACK_IMPORTED_MODULE_9__.TableRules();
-    // gill net
-    if (gearName === 'Gill Net') {
-      newTable = new _data_models_catch_table_models_table_rules_model__WEBPACK_IMPORTED_MODULE_9__.TableRules('daily-catch', 'Gill Net');
-      newTable.containsSpecies = ['Sockeye', 'Coho', 'Pink', 'Chum', 'Chinook', 'Steelhead', 'Atlantic', 'Dogfish', 'Green Sturgeon', 'White Sturgeon'];
-      newTable.excludesSpecies = ['Legal Sized Chinook', 'Sublegal Sized Chinook'];
-      newTable.releaseOnlySpecies = ['Steelhead', 'White Sturgeon', 'Green Sturgeon'];
+  static setTableRules(rules) {
+    this.tableRules.length = 0; // clear any previous data
+    for (let rule of rules) {
+      console.log(rule);
+      let newTable = new _data_models_catch_table_models_table_rules_model__WEBPACK_IMPORTED_MODULE_9__.TableRules();
+      newTable.tableType = rule.tableType;
+      newTable.gearName = rule.gearName;
+      for (let fish of rule.containsSpecies) {
+        newTable.containsSpecies.push(fish);
+      }
+      for (let fish of rule.excludesSpecies) {
+        newTable.excludesSpecies.push(fish);
+      }
+      for (let fish of rule.releaseOnlySpecies) {
+        newTable.releaseOnlySpecies.push(fish);
+      }
+      this.tableRules.push(newTable);
     }
-    // seine
-    else if (gearName === 'Seine') {
-      newTable = new _data_models_catch_table_models_table_rules_model__WEBPACK_IMPORTED_MODULE_9__.TableRules('daily-catch', 'Seine');
-      newTable.containsSpecies = ['Sockeye', 'Coho', 'Pink', 'Chum', 'Steelhead', 'Atlantic', 'Jack Chinook', 'Adult Chinook'];
-      newTable.excludesSpecies = ['Legal Sized Chinook', 'Sublegal Sized Chinook'];
-    }
-    // troll
-    else if (gearName === 'Troll') {
-      newTable = new _data_models_catch_table_models_table_rules_model__WEBPACK_IMPORTED_MODULE_9__.TableRules('daily-catch', 'Troll');
-      newTable.containsSpecies = ['Sockeye', 'Coho', 'Pink', 'Chum', 'Atlantic', 'Grilse', 'Legal Sized Chinook', 'Sublegal Sized Chinook'];
-      newTable.excludesSpecies = ['Jack Chinook'];
-      newTable.releaseOnlySpecies = ['Sublegal Sized Chinook', 'Grilse'];
-    }
-    return newTable;
   }
-  // get the net types for gill net reports
-  static getNetTypes() {
-    return ['Alaska Twist', 'Multi Strand', 'Combination'];
+  // set table rules for catch table data
+  static getTableRules(gearName) {
+    for (let rule of this.tableRules) {
+      if (rule.gearName === gearName) {
+        return rule;
+      }
+    }
+    return new _data_models_catch_table_models_table_rules_model__WEBPACK_IMPORTED_MODULE_9__.TableRules(); // return empty table rule if something goes wrong
+  }
+  // set the net types for gill net reports
+  static setNetTypes(nets) {
+    this.netTypes.length = 0; // clear any pre-existing data
+    for (let net of nets) {
+      let currNet = net;
+      this.netTypes.push(currNet);
+    }
   }
 }
+LocalStorageService.common_couch = 'http://testUser:testPassword@10.2.0.6:5984/common';
+// URL for accessing common couch db
 LocalStorageService.currUser = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_1__.UserData('', '');
 LocalStorageService.error = '';
+LocalStorageService.licenseAreas = [];
+LocalStorageService.netTypes = [];
+LocalStorageService.tableRules = [];
 LocalStorageService.ɵfac = function LocalStorageService_Factory(t) {
   return new (t || LocalStorageService)();
 };
