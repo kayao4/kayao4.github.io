@@ -7774,6 +7774,7 @@ class ProfileComponent {
           this.containsGillNet = true; // show nets if we added a gill net logbook
         }
 
+        this.logbooks = this.userDetails.gears;
         this.toastr.success("Logbook Added!", "Success");
       }
     });
@@ -9533,13 +9534,13 @@ function ResourcesComponent_div_9_mat_expansion_panel_4_Template(rf, ctx) {
   if (rf & 2) {
     const logbook_r12 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate1"](" ", logbook_r12.name, " Maps ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵtextInterpolate1"](" ", logbook_r12, " Maps ");
     _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", logbook_r12.name === "Gill Net");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", logbook_r12 === "Gill Net");
     _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", logbook_r12.name === "Seine");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", logbook_r12 === "Seine");
     _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", logbook_r12.name === "Troll");
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("ngIf", logbook_r12 === "Troll");
   }
 }
 function ResourcesComponent_div_9_Template(rf, ctx) {
@@ -9593,8 +9594,11 @@ class ResourcesComponent {
     this.userDetails = new _data_models_user_models_user_data_model__WEBPACK_IMPORTED_MODULE_0__.UserData('', '');
     this.speciesGuides = [];
     this.gillNetMaps = [];
+    this.containsGillNet = false;
     this.seineMaps = [];
+    this.containsSeine = false;
     this.trollMaps = [];
+    this.containsTroll = false;
     this.isGuide = false;
     this.isMap = false;
     this.path = '../../../assets/pdfs/';
@@ -9657,17 +9661,23 @@ class ResourcesComponent {
     // define species guide pdfs
     this.speciesGuides = [['Pacific Coastal Birds', 'jPacific_Coastal_Birds_2012.pdf'], ['Sturgeon ID Sheet', 'lSturgeon ID Sheet_RG.pdf'], ['Common Ground Fish', 'icommongroundfish_poster.pdf'], ['Marine Mammal Guide', 'kBCCSN ID Guide_2010 revised.pdf']];
     // determine what maps are available to the user based on their available logbooks
-    this.logbooks = this.userDetails.gears;
-    for (let gear of this.logbooks) {
-      if (gear.name === 'Gill Net') {
+    let gears = this.userDetails.gears;
+    for (let gear of gears) {
+      if (gear.name === 'Gill Net' && !this.containsGillNet) {
         this.gillNetMaps.push(['License Areas (C-E)', 'ggearareamapCDEforGillnet.PDF']);
         this.gillNetMaps.push(['Subareas For Nets', 'hLogbook Subareas For Nets.pdf']);
-      } else if (gear.name === 'Seine') {
+        this.logbooks.push('Gill Net');
+        this.containsGillNet = true;
+      } else if (gear.name === 'Seine' && !this.containsSeine) {
         this.seineMaps.push(['License Areas (A-B)', 'ggearareamapsprintABforSeine.pdf']);
         this.seineMaps.push(['Subareas For Nets', 'hLogbook Subareas For Nets.pdf']);
-      } else if (gear.name === 'Troll') {
+        this.logbooks.push('Seine');
+        this.containsSeine = true;
+      } else if (gear.name === 'Troll' && !this.containsTroll) {
         this.trollMaps.push(['License Areas (F-H)', 'lgearareamapsF-H.pdf']);
         this.trollMaps.push(['Zones and Subareas For Troll', 'mLogbook Zones and Subareas For Troll - colour.pdf']);
+        this.logbooks.push('Troll');
+        this.containsTroll = true;
       }
     }
   }
